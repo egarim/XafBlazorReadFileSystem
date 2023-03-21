@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33103.201
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XafBlazorReadFileSystem.Module", "XafBlazorReadFileSystem.Module\XafBlazorReadFileSystem.Module.csproj", "{E5592577-E558-4805-A5B5-DC4331C555C7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XafBlazorReadFileSystem.Blazor.Server", "XafBlazorReadFileSystem.Blazor.Server\XafBlazorReadFileSystem.Blazor.Server.csproj", "{6847B132-8B52-446D-B58E-558B9961FDEE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{342E39EB-90F3-4205-8876-6EF9B402FAF3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		EasyTest|Any CPU = EasyTest|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E5592577-E558-4805-A5B5-DC4331C555C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5592577-E558-4805-A5B5-DC4331C555C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5592577-E558-4805-A5B5-DC4331C555C7}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{E5592577-E558-4805-A5B5-DC4331C555C7}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{E5592577-E558-4805-A5B5-DC4331C555C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5592577-E558-4805-A5B5-DC4331C555C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6847B132-8B52-446D-B58E-558B9961FDEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6847B132-8B52-446D-B58E-558B9961FDEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6847B132-8B52-446D-B58E-558B9961FDEE}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{6847B132-8B52-446D-B58E-558B9961FDEE}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{6847B132-8B52-446D-B58E-558B9961FDEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6847B132-8B52-446D-B58E-558B9961FDEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{342E39EB-90F3-4205-8876-6EF9B402FAF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{342E39EB-90F3-4205-8876-6EF9B402FAF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{342E39EB-90F3-4205-8876-6EF9B402FAF3}.EasyTest|Any CPU.ActiveCfg = Debug|Any CPU
+		{342E39EB-90F3-4205-8876-6EF9B402FAF3}.EasyTest|Any CPU.Build.0 = Debug|Any CPU
+		{342E39EB-90F3-4205-8876-6EF9B402FAF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{342E39EB-90F3-4205-8876-6EF9B402FAF3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8EEE6F36-8093-418A-B32D-3F156C6BAC6C}
+	EndGlobalSection
+EndGlobal
