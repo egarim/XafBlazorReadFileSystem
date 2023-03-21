@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using XafBlazorReadFileSystem.Module;
+using XafBlazorReadFileSystem.Module.BusinessObjects;
 
 namespace Tests
 {

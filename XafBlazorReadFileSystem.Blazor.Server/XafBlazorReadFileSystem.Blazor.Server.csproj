@@ -25,4 +25,7 @@
   <ItemGroup>
     <ProjectReference Include="..\XafBlazorReadFileSystem.Module\XafBlazorReadFileSystem.Module.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\UsersFiles\User\" />
+  </ItemGroup>
 </Project>

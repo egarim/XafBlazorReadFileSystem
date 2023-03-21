@@ -1,21 +1,15 @@
-﻿using System;
+﻿using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using XafBlazorReadFileSystem.Module.BusinessObjects;
 
 namespace XafBlazorReadFileSystem.Module
 {
-    public class FileSystemItem
-    {
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
-        public string Name { get; set; }
-        public string Type { get; set; }
-        public string FullPath { get; set; }
-        public string Parent { get; set; }
-        public bool IsDeleted { get; set; }
-    }
+   
 
     public class FileSystemHelper
     {
