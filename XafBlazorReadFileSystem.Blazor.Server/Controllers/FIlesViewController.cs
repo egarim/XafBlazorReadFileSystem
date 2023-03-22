@@ -28,6 +28,7 @@ namespace XafBlazorReadFileSystem.Blazor.Server.Controllers
         {
             InitializeComponent();
 
+            this.TargetViewNesting = Nesting.Nested;
 
             //TODO use this https://www.syncfusion.com/blazor-components/blazor-file-manager
 
@@ -38,8 +39,32 @@ namespace XafBlazorReadFileSystem.Blazor.Server.Controllers
             CreateDirectory.SelectionDependencyType = SelectionDependencyType.RequireSingleObject;
             // Target required Views (via the TargetXXX properties) and create their Actions.
         }
+        private Frame masterFrame;
+        public void AssignMasterFrame(Frame parentFrame)
+        {
+            masterFrame = parentFrame;
+            // Use this Frame to get Controllers and Actions. 
+        }
         private void CreateDirectory_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
+
+            var fsi=e.CurrentObject as FileSystemItem;
+            if (fsi != null)
+            {
+                FileSystemHelper.CreateFolder(fsi, "New Directory");
+                var CurrentUsersDirectory= masterFrame.View.CurrentObject as UsersDirectory;
+                var NewFiles=FileSystemHelper.ReadFileSystem(CurrentUsersDirectory.Path);
+                foreach (var item in NewFiles)
+                {
+                    if(CurrentUsersDirectory.Files.FirstOrDefault(f=>f.FullPath== item.FullPath)!=null)
+                    {
+                        continue;
+                    }
+                    CurrentUsersDirectory.Files.Add(item);
+
+                }
+             
+            }
             // Execute your business logic (https://docs.devexpress.com/eXpressAppFramework/112737/).
         }
         protected override void OnActivated()

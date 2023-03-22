@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using XafBlazorReadFileSystem.Blazor.Server.Controllers;
 using XafBlazorReadFileSystem.Module.BusinessObjects;
 
 namespace XafBlazorReadFileSystem.Module.Controllers
@@ -41,17 +42,47 @@ namespace XafBlazorReadFileSystem.Module.Controllers
                 UsersDirectory.Files.Add(item);
             }
             
-            this.View.CurrentObject= UsersDirectory; 
+            this.View.CurrentObject= UsersDirectory;
             // Perform various tasks depending on the target View.
+            foreach (ListPropertyEditor lpe in ((DetailView)View).GetItems<ListPropertyEditor>())
+            {
+                if (lpe.Frame != null)
+                {
+                    PushFrameToNestedController(lpe.Frame);
+                }
+                else
+                {
+                    lpe.FrameChanged += lpe_FrameChanged;
+                }
+            }
         }
         protected override void OnViewControlsCreated()
         {
             base.OnViewControlsCreated();
             // Access and customize the target View control.
         }
+      
+        private void PushFrameToNestedController(Frame frame)
+        {
+            foreach (Controller c in frame.Controllers)
+            {
+                if (c is FilesViewController)
+                {
+                    ((FilesViewController)c).AssignMasterFrame(Frame);
+                }
+            }
+        }
+        private void lpe_FrameChanged(object sender, EventArgs e)
+        {
+            PushFrameToNestedController(((ListPropertyEditor)sender).Frame);
+        }
+       
         protected override void OnDeactivated()
         {
-            // Unsubscribe from previously subscribed events and release other references and resources.
+            foreach (ListPropertyEditor lpe in ((DetailView)View).GetItems<ListPropertyEditor>())
+            {
+                lpe.FrameChanged -= new EventHandler<EventArgs>(lpe_FrameChanged);
+            }
             base.OnDeactivated();
         }
     }
