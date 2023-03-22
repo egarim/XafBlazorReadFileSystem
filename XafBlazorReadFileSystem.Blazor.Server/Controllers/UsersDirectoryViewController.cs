@@ -32,13 +32,17 @@ namespace XafBlazorReadFileSystem.Module.Controllers
         {
             base.OnActivated();
 
-            string rootpath = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "wwwroot\\UsersFiles");
+            string rootpath = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "wwwroot\\UsersFiles", SecuritySystem.CurrentUserName);
             UsersDirectory UsersDirectory = new UsersDirectory();
             UsersDirectory.Path= rootpath;
             UsersDirectory.UserName = SecuritySystem.CurrentUserName;
             var UsersFiles= FileSystemHelper.ReadFileSystem(rootpath);
             foreach (var item in UsersFiles)
             {
+                if(item.IsDeleted)
+                {
+                    continue;
+                }
                 UsersDirectory.Files.Add(item);
             }
             

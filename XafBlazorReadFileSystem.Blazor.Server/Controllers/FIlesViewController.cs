@@ -22,7 +22,7 @@ namespace XafBlazorReadFileSystem.Blazor.Server.Controllers
     public partial class FilesViewController : ObjectViewController<ListView, FileSystemItem>
     {
         PopupWindowShowAction CreateDirectory;
-        SimpleAction CreateDirectory2;
+        SimpleAction Delete;
         // Use CodeRush to create Controllers and Actions with a few keystrokes.
         // https://docs.devexpress.com/CodeRushForRoslyn/403133/
         public FilesViewController()
@@ -33,11 +33,11 @@ namespace XafBlazorReadFileSystem.Blazor.Server.Controllers
 
             //TODO use this https://www.syncfusion.com/blazor-components/blazor-file-manager
 
-            //CreateDirectory2 = new SimpleAction(this, "CreateDirectory2", "View");
-            //CreateDirectory2.Execute += CreateDirectory_Execute;
-            //CreateDirectory2.TargetObjectsCriteria = CriteriaOperator.FromLambda<FileSystemItem>(f => f.Type == "directory").ToString();
-            //CreateDirectory2.TargetObjectsCriteriaMode = TargetObjectsCriteriaMode.TrueAtLeastForOne;
-            //CreateDirectory2.SelectionDependencyType = SelectionDependencyType.RequireSingleObject;
+            Delete = new SimpleAction(this, "DeleteFile", "View");
+            Delete.Caption = "Delete Item";
+            Delete.Execute += Delete_Execute;
+            Delete.TargetObjectsCriteriaMode = TargetObjectsCriteriaMode.TrueAtLeastForOne;
+            Delete.SelectionDependencyType = SelectionDependencyType.RequireSingleObject;
 
 
             CreateDirectory = new PopupWindowShowAction(this, "CreateDirectory", "View");
@@ -66,6 +66,9 @@ namespace XafBlazorReadFileSystem.Blazor.Server.Controllers
                 var NewFiles = FileSystemHelper.ReadFileSystem(CurrentUsersDirectory.Path);
                 foreach (var item in NewFiles)
                 {
+                    if (item.IsDeleted)
+                        continue;
+
                     if (CurrentUsersDirectory.Files.FirstOrDefault(f => f.FullPath == item.FullPath) != null)
                     {
                         continue;
@@ -92,15 +95,33 @@ namespace XafBlazorReadFileSystem.Blazor.Server.Controllers
             masterFrame = parentFrame;
             // Use this Frame to get Controllers and Actions. 
         }
-        private void CreateDirectory_Execute(object sender, SimpleActionExecuteEventArgs e)
+        private void Delete_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
+            var Current= e.CurrentObject as FileSystemItem;
+            var CurrentUsersDirectory = masterFrame.View.CurrentObject as UsersDirectory;
 
-            
+            var ItemsToRemove=CurrentUsersDirectory.Files.Where(f => f.Parent == Current.Name);
+
+            FileSystemHelper.DeleteItem(Current);
+            CurrentUsersDirectory.Files.Remove(Current);
+            foreach (var item in ItemsToRemove)
+            {
+                CurrentUsersDirectory.Files.Remove(item);
+            }
+
             // Execute your business logic (https://docs.devexpress.com/eXpressAppFramework/112737/).
         }
         protected override void OnActivated()
         {
             base.OnActivated();
+            foreach (ActionBase actionBase in this.Frame.GetController<NewObjectViewController>().Actions)
+            {
+                actionBase.Active["No valid"] = false;
+            }
+            foreach (ActionBase actionBase in this.Frame.GetController<DeleteObjectsViewController>().Actions)
+            {
+                actionBase.Active["No valid"] = false;
+            }
             // Perform various tasks depending on the target View.
         }
         protected override void OnViewControlsCreated()
