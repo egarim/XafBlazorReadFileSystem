@@ -37,6 +37,34 @@ namespace XafBlazorReadFileSystem.Module
             return result;
         }
 
+        private static readonly string[] Base32Chars = {
+        "0", "1", "2", "3", "4", "5", "6", "7",
+        "8", "9", "A", "B", "C", "D", "E", "F",
+        "G", "H", "J", "K", "M", "N", "P", "Q",
+        "R", "S", "T", "V", "W", "X", "Y", "Z"
+    };
+
+        public static string NewShortGuid()
+        {
+            byte[] guidBytes = Guid.NewGuid().ToByteArray();
+            long longValue = BitConverter.ToInt64(guidBytes, 0);
+            string base32Value = ConvertToBase32(Math.Abs(longValue));
+            return base32Value.Substring(0, 8);
+        }
+
+        private static string ConvertToBase32(long value)
+        {
+            string result = "";
+            do
+            {
+                int remainder = (int)(value % 32);
+                result = Base32Chars[remainder] + result;
+                value /= 32;
+            } while (value > 0);
+            return result;
+        }
+
+
         public static void DeleteItem(FileSystemItem item)
         {
             if (item == null)
@@ -45,7 +73,7 @@ namespace XafBlazorReadFileSystem.Module
             }
 
             // Rename the item with prefix "GC-"
-            var newName = "GC-" + item.Name;
+            var newName = $"GC-{NewShortGuid()}-" + item.Name;
             var newPath = Path.Combine(item.Parent, newName);
             if (item.Type == "directory")
             {
