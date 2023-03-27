@@ -18,6 +18,9 @@ using XafBlazorReadFileSystem.Module.BusinessObjects;
 
 namespace XafBlazorReadFileSystem.Blazor.Server.Controllers
 {
+    using System;
+    using System.IO;
+    using System.IO.Compression;
     // For more typical usage scenarios, be sure to check out https://documentation.devexpress.com/eXpressAppFramework/clsDevExpressExpressAppViewControllertopic.aspx.
     public partial class FilesViewController : ObjectViewController<ListView, FileSystemItem>
     {
