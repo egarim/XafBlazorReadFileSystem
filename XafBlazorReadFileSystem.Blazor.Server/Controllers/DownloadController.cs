@@ -32,6 +32,7 @@ namespace XafBlazorReadFileSystem.Blazor.Server.Controllers
             InitializeComponent();
             Download = new SimpleAction(this, "Download", "View");
             Download.Execute += Download_Execute;
+            Download.SelectionDependencyType = SelectionDependencyType.RequireSingleObject;
             // Target required Views (via the TargetXXX properties) and create their Actions.
         }
         private async void Download_Execute(object sender, SimpleActionExecuteEventArgs e)
